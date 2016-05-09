@@ -42,10 +42,11 @@
 							<span class="icon-bar"></span>
 						</button>
 						<a href="http://minchin.ca/" class="navbar-brand">
-Introduction to Pelican						</a>
+<img src="http://minchin.ca/introduction-to-pelican/images/MinchindotCA-200.png" width="100%" alt="Introduction to Pelican" class="img-responsive"/> 						</a>
 					</div>
 					<div class="collapse navbar-collapse sidebar-navbar-collapse navbar-nonheader">
 						<ul class="nav navbar-nav">
+									 <li><a href="http://minchin.ca/introduction-to-pelican/">Welcome</a></li>
 									 <li><a href="http://minchin.ca/introduction-to-pelican/html-was-simple/">HTML Was Simple</a></li>
 									 <li><a href="http://minchin.ca/introduction-to-pelican/wordperfect-reveal-codes/">Wordperfect Reveal Codes</a></li>
 									 <li><a href="http://minchin.ca/introduction-to-pelican/lamp-stack/">Lamp Stack</a></li>
@@ -83,6 +84,7 @@ Introduction to Pelican						</a>
 
     <ol class="breadcrumb">
         <li><a href="http://minchin.ca" title="Introduction to Pelican"><span class="fa fa-home fa-lg"></span></a></li>
+            <li><a href="http://minchin.ca/introduction-to-pelican/http://minchin.ca/introduction-to-pelican/" title="Introduction to Pelican">Introduction to Pelican</a></li>
             <li class="active"><a href="http://minchin.ca/introduction-to-pelican/jinja-templating-engine-for-pelican/" title="Jinja: Templating Engine for Pelican">Jinja: Templating Engine for Pelican</a></li>
     </ol>
 
@@ -90,16 +92,13 @@ Introduction to Pelican						</a>
         <h1 class="entry-title">Jinja: Templating Engine for Pelican</h1>
         
         <div class="entry-content">
-            <p><img alt="Jinja2 Logo" src="http://minchin.ca/introduction-to-pelican/images/jinja.png" /></p>
+            <div class="center-block thumbnail max-col-md-9">
+    <img src="http://minchin.ca/introduction-to-pelican/images/jinja.png" />
+    <caption>Jinja Logo</caption>
+</div>
+
 <h3>layout.html</h3>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7
-8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
         <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
     <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
@@ -108,22 +107,10 @@ Introduction to Pelican						</a>
     <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </pre></div>
-</td></tr></table>
+
 
 <h3>users.html</h3>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;layout.html&quot;</span> <span class="cp">%}</span>
+<div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;layout.html&quot;</span> <span class="cp">%}</span>
 
 <span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> -<span class="cp">%}</span>
     All Users
@@ -137,7 +124,6 @@ Introduction to Pelican						</a>
     <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
 <span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
 </pre></div>
-</td></tr></table>
         </div>
     </section>
 

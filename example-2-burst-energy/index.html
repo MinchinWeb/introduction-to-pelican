@@ -42,10 +42,11 @@
 							<span class="icon-bar"></span>
 						</button>
 						<a href="http://minchin.ca/" class="navbar-brand">
-Introduction to Pelican						</a>
+<img src="http://minchin.ca/introduction-to-pelican/images/MinchindotCA-200.png" width="100%" alt="Introduction to Pelican" class="img-responsive"/> 						</a>
 					</div>
 					<div class="collapse navbar-collapse sidebar-navbar-collapse navbar-nonheader">
 						<ul class="nav navbar-nav">
+									 <li><a href="http://minchin.ca/introduction-to-pelican/">Welcome</a></li>
 									 <li><a href="http://minchin.ca/introduction-to-pelican/html-was-simple/">HTML Was Simple</a></li>
 									 <li><a href="http://minchin.ca/introduction-to-pelican/wordperfect-reveal-codes/">Wordperfect Reveal Codes</a></li>
 									 <li><a href="http://minchin.ca/introduction-to-pelican/lamp-stack/">Lamp Stack</a></li>
@@ -83,6 +84,7 @@ Introduction to Pelican						</a>
 
     <ol class="breadcrumb">
         <li><a href="http://minchin.ca" title="Introduction to Pelican"><span class="fa fa-home fa-lg"></span></a></li>
+            <li><a href="http://minchin.ca/introduction-to-pelican/http://minchin.ca/introduction-to-pelican/" title="Introduction to Pelican">Introduction to Pelican</a></li>
             <li class="active"><a href="http://minchin.ca/introduction-to-pelican/example-2-burst-energy/" title="Example 2: Burst Energy">Example 2: Burst Energy</a></li>
     </ol>
 
@@ -100,121 +102,7 @@ Introduction to Pelican						</a>
 <li>use automation to make sure the zip file is a consistent format</li>
 </ul>
 <h3>tasks.py</h3>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
-  2
-  3
-  4
-  5
-  6
-  7
-  8
-  9
- 10
- 11
- 12
- 13
- 14
- 15
- 16
- 17
- 18
- 19
- 20
- 21
- 22
- 23
- 24
- 25
- 26
- 27
- 28
- 29
- 30
- 31
- 32
- 33
- 34
- 35
- 36
- 37
- 38
- 39
- 40
- 41
- 42
- 43
- 44
- 45
- 46
- 47
- 48
- 49
- 50
- 51
- 52
- 53
- 54
- 55
- 56
- 57
- 58
- 59
- 60
- 61
- 62
- 63
- 64
- 65
- 66
- 67
- 68
- 69
- 70
- 71
- 72
- 73
- 74
- 75
- 76
- 77
- 78
- 79
- 80
- 81
- 82
- 83
- 84
- 85
- 86
- 87
- 88
- 89
- 90
- 91
- 92
- 93
- 94
- 95
- 96
- 97
- 98
- 99
-100
-101
-102
-103
-104
-105
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># Altered fabfile to use with Invoke</span>
+<div class="highlight"><pre><span></span><span class="c1"># Altered fabfile to use with Invoke</span>
 <span class="kn">from</span> <span class="nn">invoke</span> <span class="kn">import</span> <span class="n">run</span><span class="p">,</span> <span class="n">task</span>
 
 <span class="c1"># from fabric.api import *</span>
@@ -330,91 +218,10 @@ Introduction to Pelican						</a>
     <span class="c1"># Save the image of the screen</span>
     <span class="n">page</span><span class="o">.</span><span class="n">capture_to</span><span class="p">(</span><span class="s2">&quot;burst-energy.png&quot;</span><span class="p">)</span>
 </pre></div>
-</td></tr></table>
+
 
 <h3>build_js.py</h3>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76
-77
-78
-79
-80
-81
-82</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="c1"># -*- coding: utf-8 -*- #</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
 
@@ -497,177 +304,10 @@ Introduction to Pelican						</a>
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">build_js</span><span class="p">()</span>
 </pre></div>
-</td></tr></table>
+
 
 <h3>floating_rate_vs_rro_graph.py</h3>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
-  2
-  3
-  4
-  5
-  6
-  7
-  8
-  9
- 10
- 11
- 12
- 13
- 14
- 15
- 16
- 17
- 18
- 19
- 20
- 21
- 22
- 23
- 24
- 25
- 26
- 27
- 28
- 29
- 30
- 31
- 32
- 33
- 34
- 35
- 36
- 37
- 38
- 39
- 40
- 41
- 42
- 43
- 44
- 45
- 46
- 47
- 48
- 49
- 50
- 51
- 52
- 53
- 54
- 55
- 56
- 57
- 58
- 59
- 60
- 61
- 62
- 63
- 64
- 65
- 66
- 67
- 68
- 69
- 70
- 71
- 72
- 73
- 74
- 75
- 76
- 77
- 78
- 79
- 80
- 81
- 82
- 83
- 84
- 85
- 86
- 87
- 88
- 89
- 90
- 91
- 92
- 93
- 94
- 95
- 96
- 97
- 98
- 99
-100
-101
-102
-103
-104
-105
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123
-124
-125
-126
-127
-128
-129
-130
-131
-132
-133
-134
-135
-136
-137
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149
-150
-151
-152
-153
-154
-155
-156
-157
-158
-159
-160
-161
-162
-163
-164
-165
-166
-167
-168</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">#   This generated the graph show the comparision between the RRO and our</span>
+<div class="highlight"><pre><span></span><span class="c1">#   This generated the graph show the comparision between the RRO and our</span>
 <span class="c1">#   floating rate.</span>
 <span class="c1">#   This graph is displayed on https://www.burstenergy.ca/rates/floating/</span>
 
@@ -836,7 +476,7 @@ Introduction to Pelican						</a>
     <span class="n">averages</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
     <span class="n">averages</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
 </pre></div>
-</td></tr></table>
+
 
 <!-- reveiw -->
         </div>
