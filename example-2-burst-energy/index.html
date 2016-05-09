@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>Example 2: Burst Energy - Introduction to Pelican</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <!-- Open Graph tags -->
+            <meta property="og:type" content="article"/>
+            <meta property="og:title" content="Example 2: Burst Energy"/>
+            <meta property="og:url" content="/example-2-burst-energy/"/>
+	
+    <!-- Bootstrap -->
+        <link href="/theme/css/bootstrap.flatly.min.css" rel="stylesheet" type="text/css"/>
+	    	<link href="/theme/css/typogrify.css" rel="stylesheet" type="text/css" />
+	    	<link href="/theme/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+	    	<link href="/theme/css/pygments/solarizeddark.css" rel="stylesheet" type="text/css" />
+	    	<link href="/css/intro-to-pelican.css" rel="stylesheet" type="text/css" />
+
+
+</head>
+<body>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-3">
+			<div class="sidebar-nav">
+				<div class="navbar navbar-default" role="navigation">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a href="/" class="navbar-brand">
+Introduction to Pelican						</a>
+					</div>
+					<div class="collapse navbar-collapse sidebar-navbar-collapse navbar-nonheader">
+						<ul class="nav navbar-nav">
+									 <li><a href="/html-was-simple/">HTML Was Simple</a></li>
+									 <li><a href="/wordperfect-reveal-codes/">Wordperfect Reveal Codes</a></li>
+									 <li><a href="/lamp-stack/">Lamp Stack</a></li>
+									 <li><a href="/downtime/">Downtime</a></li>
+									 <li><a href="/competitors-to-pelican/">Competitors to Pelican</a></li>
+									 <li><a href="/pelican-building-blocks/">Pelican Building Blocks</a></li>
+									 <li><a href="/markdown/">Markdown</a></li>
+									 <li><a href="/restructured-text/">Restructured Text</a></li>
+									 <li><a href="/html-for-pelican/">HTML for Pelican</a></li>
+									 <li><a href="/jinja-templating-engine-for-pelican/">Jinja: Templating Engine for Pelican</a></li>
+									 <li><a href="/advanced-jinja/">Advanced Jinja</a></li>
+									 <li><a href="/responsive-design/">Responsive Design</a></li>
+									 <li><a href="/pelican-quickstart/">Pelican Quickstart</a></li>
+									 <li><a href="/pelican-internal-links/">Pelican Internal Links</a></li>
+									 <li><a href="/quirks/">Quirks</a></li>
+									 <li><a href="/pelicanconfpy/">pelicanconf.py</a></li>
+									 <li><a href="/example-1-jrnl/">Example 1: Jrnl</a></li>
+									 <li><a href="/sample-jrnl-exported-entry/">Sample JRNL exported Entry</a></li>
+									 <li><a href="/jrnl-configuration/">JRNL Configuration</a></li>
+									 <li><a href="/custom-direct-template/">Custom Direct Template</a></li>
+									 <li class="active"><a href="/example-2-burst-energy/">Example 2: Burst Energy</a></li>
+									 <li><a href="/burst-energy-configuration/">Burst Energy Configuration</a></li>
+									 <li><a href="/example-3-minchinca/">Example 3: Minchin.ca</a></li>
+									 <li><a href="/minchinca-configuration/">Minchin.ca Configuration</a></li>
+									 <li><a href="/example-4-minchin-genealogy/">Example 4: Minchin Genealogy</a></li>
+									 <li><a href="/genealogy-configuration/">Genealogy Configuration</a></li>
+						</ul>
+					</div> <!-- /.navbar-collapse -->
+				</div>
+			</div> <!-- /.sidebar-nav -->
+		</div>
+
+
+		<div class="col-sm-9">
+
+    <ol class="breadcrumb">
+        <li><a href="" title="Introduction to Pelican"><span class="fa fa-home fa-lg"></span></a></li>
+            <li class="active"><a href="/example-2-burst-energy/" title="Example 2: Burst Energy">Example 2: Burst Energy</a></li>
+    </ol>
+
+    <section id="content" class="body">
+        <h1 class="entry-title">Example 2: Burst Energy</h1>
+        
+        <div class="entry-content">
+            <ul>
+<li><a href="/webpages/burstenergy/localhost+8001/index.html">Example</a></li>
+<li>formerly a production site</li>
+<li>I'd generate locally and then send a zip file to the hosting provider</li>
+<li>used <em>Invoke</em> to automate site generation</li>
+<li>use automation to generate graphs for the site as part of the build process (before running Pelican)</li>
+<li>use automation to generate javascript files needed elsewhere (after running Pelican)</li>
+<li>use automation to make sure the zip file is a consistent format</li>
+</ul>
+<h3>tasks.py</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># Altered fabfile to use with Invoke</span>
+<span class="kn">from</span> <span class="nn">invoke</span> <span class="kn">import</span> <span class="n">run</span><span class="p">,</span> <span class="n">task</span>
+
+<span class="c1"># from fabric.api import *</span>
+<span class="c1"># import fabric.contrib.project as project</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="c1"># import sys</span>
+<span class="c1"># import SimpleHTTPServer</span>
+<span class="c1"># import SocketServer</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+<span class="kn">from</span> <span class="nn">build_js</span> <span class="kn">import</span> <span class="n">build_js</span>
+<span class="kn">from</span> <span class="nn">floating_rate_vs_rro_graph</span> <span class="kn">import</span> <span class="n">make_graph</span>
+
+<span class="c1"># Local path configuration (can be absolute or relative to fabfile)</span>
+<span class="n">env_deploy_path</span> <span class="o">=</span> <span class="s1">&#39;output&#39;</span>
+<span class="n">env_zipfile</span> <span class="o">=</span> <span class="s1">&#39;burstenergy.zip&#39;</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">clean</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">env_deploy_path</span><span class="p">):</span>
+        <span class="n">run</span><span class="p">(</span><span class="s1">&#39;rm -rf &#39;</span> <span class="o">+</span> <span class="n">env_deploy_path</span><span class="p">)</span>
+        <span class="n">run</span><span class="p">(</span><span class="s1">&#39;mkdir &#39;</span> <span class="o">+</span> <span class="n">env_deploy_path</span><span class="p">)</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">build</span><span class="p">():</span>
+    <span class="n">run</span><span class="p">(</span><span class="s1">&#39;pelican -s pelicanconf.py&#39;</span><span class="p">)</span>
+    <span class="n">build_js</span><span class="p">()</span>
+    <span class="n">make_graph</span><span class="p">()</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">rebuild</span><span class="p">():</span>
+    <span class="n">clean</span><span class="p">()</span>
+    <span class="n">build</span><span class="p">()</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">regenerate</span><span class="p">():</span>
+    <span class="n">run</span><span class="p">(</span><span class="s1">&#39;start pelican -r -s pelicanconf.py&#39;</span><span class="p">)</span>
+    <span class="n">build_js</span><span class="p">()</span>
+    <span class="n">make_graph</span><span class="p">()</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">serve</span><span class="p">():</span>
+    <span class="n">run</span><span class="p">(</span><span class="s1">&#39;cd &#39;</span> <span class="o">+</span> <span class="n">env_deploy_path</span> <span class="o">+</span> <span class="s1">&#39; &amp;&amp; start python -m http.server&#39;</span><span class="p">)</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">reserve</span><span class="p">():</span>
+    <span class="n">build</span><span class="p">()</span>
+    <span class="n">build_js</span><span class="p">()</span>
+    <span class="n">make_graph</span><span class="p">()</span>
+    <span class="n">serve</span><span class="p">()</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">preview</span><span class="p">():</span>
+    <span class="n">run</span><span class="p">(</span><span class="s1">&#39;pelican -s publishconf.py&#39;</span><span class="p">)</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">build_zip</span><span class="p">():</span>
+    <span class="n">zipf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">env_zipfile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_DEFLATED</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">env_deploy_path</span><span class="p">):</span>
+        <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="n">absfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="nb">file</span><span class="p">)</span>
+            <span class="n">zfile</span> <span class="o">=</span> <span class="n">absfile</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">env_deploy_path</span><span class="p">)</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">):]</span>  <span class="c1"># relative path</span>
+            <span class="n">zipf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">absfile</span><span class="p">,</span> <span class="n">zfile</span><span class="p">)</span>
+    <span class="n">zipf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">zip</span><span class="p">():</span>
+    <span class="n">clean</span><span class="p">()</span>
+    <span class="n">build</span><span class="p">()</span>
+    <span class="n">build_zip</span><span class="p">()</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">develop</span><span class="p">():</span>
+    <span class="n">clean</span><span class="p">()</span>
+    <span class="n">regenerate</span><span class="p">()</span>
+    <span class="n">serve</span><span class="p">()</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">build_dieppe</span><span class="p">():</span>
+    <span class="n">run</span><span class="p">(</span><span class="s1">&#39;pelican -s pelicanconf-dieppe.py&#39;</span><span class="p">)</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">less</span><span class="p">():</span>
+    <span class="n">run</span><span class="p">(</span><span class="s1">&#39;lessc theme</span><span class="se">\\</span><span class="s1">burst-energy</span><span class="se">\\</span><span class="s1">less</span><span class="se">\\</span><span class="s1">bootstrap.burst-energy.less &gt; &#39;</span> <span class="o">+</span>
+        <span class="n">env_deploy_path</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">css</span><span class="se">\\</span><span class="s1">style.css&#39;</span><span class="p">)</span>
+    <span class="c1">#   lessc theme\burst-energy\less\bootstrap.burst-energy.less &gt; output\css\style.css</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">take_screenshot</span><span class="p">():</span>
+    <span class="kn">from</span> <span class="nn">ghost</span> <span class="kn">import</span> <span class="n">Ghost</span>
+
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:8000&quot;</span>
+    <span class="n">gh</span> <span class="o">=</span> <span class="n">Ghost</span><span class="p">()</span>
+
+    <span class="c1"># We create a new page</span>
+    <span class="n">page</span><span class="p">,</span> <span class="n">page_name</span> <span class="o">=</span> <span class="n">gh</span><span class="o">.</span><span class="n">create_page</span><span class="p">()</span>
+
+    <span class="c1"># We load the main page of ebay</span>
+    <span class="n">page_resource</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">wait_onload_event</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="c1"># Save the image of the screen</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">capture_to</span><span class="p">(</span><span class="s2">&quot;burst-energy.png&quot;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table>
+
+<h3>build_js.py</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*- #</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">This builds the JavaScript files that are used by the MySecure content.</span>
+
+<span class="sd">Build the site first, then this will put the JS files in the output directory.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<span class="k">def</span> <span class="nf">build_js</span><span class="p">():</span>
+    <span class="kn">from</span> <span class="nn">pelicanconf</span> <span class="kn">import</span> <span class="n">OUTPUT_PATH</span>
+    <span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="kn">import</span> <span class="nn">re</span>
+    <span class="kn">import</span> <span class="nn">codecs</span>
+
+    <span class="s1">&#39;configuration&#39;</span>
+    <span class="s1">&#39;form file&#39;</span>
+    <span class="n">FORM_FILE</span> <span class="o">=</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">__file__</span><span class="p">))</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span>
+                 <span class="n">OUTPUT_PATH</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
+    <span class="n">FORM_FILE</span> <span class="o">+=</span> <span class="s1">&#39;mysecure&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;signup.html&#39;</span>
+
+    <span class="s1">&#39;output directory&#39;</span>
+    <span class="n">JS_PATH</span> <span class="o">=</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">__file__</span><span class="p">))</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span>
+               <span class="n">OUTPUT_PATH</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;js&#39;</span><span class="p">)</span>
+
+    <span class="s1">&#39;Placeholder text&#39;</span>
+    <span class="n">placeholder</span> <span class="o">=</span> <span class="s1">&#39;PLACEHOLDER&#39;</span>
+
+    <span class="s2">&quot;test existence of &#39;form file&#39;&quot;</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">FORM_FILE</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">FORM_FILE_HANDLE</span><span class="p">:</span>
+        <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">FORM_FILE_HANDLE</span><span class="p">,</span> <span class="s2">&quot;lxml&quot;</span><span class="p">)</span>
+
+    <span class="s2">&quot;create `title.js`&quot;</span>
+    <span class="s2">&quot;document title&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">JS_PATH</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;title.js&#39;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">TITLE_JS</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;var titleblock = &#39;&#39;&quot;</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">TITLE_JS</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;titleblock += &#39;{}&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">soup</span><span class="o">.</span><span class="n">title</span><span class="p">),</span> <span class="nb">file</span><span class="o">=</span><span class="n">TITLE_JS</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">TITLE_JS</span><span class="p">)</span>
+        <span class="c1"># ToDo: Select the title dynamically,</span>
+        <span class="c1">#                               based on the file it&#39;s called from&quot;</span>
+
+        <span class="s2">&quot;meta -- viewport&quot;</span>
+        <span class="n">viewport</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;meta&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;viewport&#39;</span><span class="p">})</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;titleblock += &#39;{}&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">viewport</span><span class="p">),</span> <span class="nb">file</span><span class="o">=</span><span class="n">TITLE_JS</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">TITLE_JS</span><span class="p">)</span>
+
+        <span class="c1">#  link to css</span>
+        <span class="c1"># css_files = soup.findAll(&#39;link&#39;,{&#39;rel&#39;:&#39;stylesheet&#39;})</span>
+        <span class="c1"># for css in css_files:</span>
+        <span class="c1">#   print (&quot;titleblock += &#39;{}&#39;&quot;.format(css), file = TITLE_JS)</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;document.write(titleblock);&quot;</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">TITLE_JS</span><span class="p">)</span>
+
+    <span class="s2">&quot;create `header.js` and `footerinfo.js`&quot;</span>
+    <span class="n">on_header</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">my_re2</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;&lt;/?body&gt;&#39;</span><span class="p">)</span>
+    <span class="n">my_re4</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">placeholder</span><span class="p">)</span>
+    <span class="n">on_header</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">JS_PATH</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;header.js&#39;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> \
+            <span class="k">as</span> <span class="n">HEADER_JS</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">JS_PATH</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;footerinfo.js&#39;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> \
+                <span class="k">as</span> <span class="n">FOOTER_JS</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;var headerblock = &#39;&#39;&quot;</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">HEADER_JS</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;var footerblock = &#39;&#39;&quot;</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">FOOTER_JS</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span>
+                <span class="n">line2</span> <span class="o">=</span> <span class="n">my_re2</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">my_re4</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">line2</span><span class="p">):</span>
+                    <span class="n">on_header</span> <span class="o">=</span> <span class="bp">False</span>
+                    <span class="n">line2</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="k">if</span> <span class="n">on_header</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;headerblock += &#39;{}&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">line2</span><span class="p">),</span> <span class="nb">file</span><span class="o">=</span><span class="n">HEADER_JS</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;footerblock += &#39;{}&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">line2</span><span class="p">),</span> <span class="nb">file</span><span class="o">=</span><span class="n">FOOTER_JS</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;document.write(headerblock)&quot;</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">HEADER_JS</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;document.write(footerblock)&quot;</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">FOOTER_JS</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">build_js</span><span class="p">()</span>
+</pre></div>
+</td></tr></table>
+
+<h3>floating_rate_vs_rro_graph.py</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">#   This generated the graph show the comparision between the RRO and our</span>
+<span class="c1">#   floating rate.</span>
+<span class="c1">#   This graph is displayed on https://www.burstenergy.ca/rates/floating/</span>
+
+
+<span class="n">Months</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;2014-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2014-02&#39;</span><span class="p">,</span> <span class="s1">&#39;2014-03&#39;</span><span class="p">,</span> <span class="s1">&#39;2014-04&#39;</span><span class="p">,</span> <span class="s1">&#39;2014-05&#39;</span><span class="p">,</span> <span class="s1">&#39;2014-06&#39;</span><span class="p">,</span> 
+          <span class="s1">&#39;2014-07&#39;</span><span class="p">,</span> <span class="s1">&#39;2014-08&#39;</span><span class="p">,</span> <span class="s1">&#39;2014-09&#39;</span><span class="p">,</span> <span class="s1">&#39;2014-10&#39;</span><span class="p">,</span> <span class="s1">&#39;2014-11&#39;</span><span class="p">,</span> <span class="s1">&#39;2014-12&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;2015-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2015-02&#39;</span><span class="p">,</span> <span class="s1">&#39;2015-03&#39;</span><span class="p">,</span> <span class="s1">&#39;2015-04&#39;</span><span class="p">,</span> <span class="s1">&#39;2015-05&#39;</span><span class="p">,</span> <span class="s1">&#39;2015-06&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;2015-07&#39;</span><span class="p">,</span> <span class="s1">&#39;2015-08&#39;</span><span class="p">,</span> <span class="s1">&#39;2015-09&#39;</span><span class="p">,</span> <span class="s1">&#39;2015-10&#39;</span><span class="p">,</span> <span class="s1">&#39;2015-11&#39;</span><span class="p">,</span> <span class="s1">&#39;2015-12&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;2016-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2016-02&#39;</span><span class="p">,</span> <span class="s1">&#39;2016-03&#39;</span><span class="p">,</span> <span class="s1">&#39;2016-04&#39;</span><span class="p">]</span>
+
+<span class="c1"># both floating and RRO for Edmonton</span>
+<span class="n">RRO</span> <span class="o">=</span>    <span class="p">[</span> <span class="mf">8.689</span><span class="p">,</span>     <span class="mf">7.471</span><span class="p">,</span>     <span class="mf">6.991</span><span class="p">,</span>     <span class="mf">6.986</span><span class="p">,</span>      <span class="mf">8.922</span><span class="p">,</span>    <span class="mf">5.995</span><span class="p">,</span>
+           <span class="mf">7.198</span><span class="p">,</span>     <span class="mf">8.021</span><span class="p">,</span>     <span class="mf">7.954</span><span class="p">,</span>     <span class="mf">8.737</span><span class="p">,</span>      <span class="mf">7.127</span><span class="p">,</span>    <span class="mf">7.545</span><span class="p">,</span>
+           <span class="mf">7.302</span><span class="p">,</span>     <span class="mf">6.583</span><span class="p">,</span>     <span class="mf">5.431</span><span class="p">,</span>     <span class="mf">5.832</span><span class="p">,</span>      <span class="mf">4.337</span><span class="p">,</span>    <span class="mf">4.089</span><span class="p">,</span>
+           <span class="mf">6.140</span><span class="p">,</span>     <span class="mf">5.813</span><span class="p">,</span>     <span class="mf">5.387</span><span class="p">,</span>     <span class="mf">5.498</span><span class="p">,</span>      <span class="mf">5.212</span><span class="p">,</span>    <span class="mf">5.489</span><span class="p">,</span>
+           <span class="mf">5.304</span><span class="p">,</span>     <span class="mf">4.753</span><span class="p">,</span>     <span class="mf">4.521</span><span class="p">,</span>     <span class="mf">3.65</span><span class="p">]</span>
+
+<span class="n">Floating</span> <span class="o">=</span> <span class="p">[</span> <span class="mf">6.149</span><span class="p">,</span>  <span class="mf">11.730</span><span class="p">,</span>     <span class="mf">5.903</span><span class="p">,</span>     <span class="mf">4.438</span><span class="p">,</span>      <span class="mf">7.328</span><span class="p">,</span>    <span class="mf">5.909</span><span class="p">,</span>
+            <span class="mf">15.801</span><span class="p">,</span>   <span class="mf">6.239</span><span class="p">,</span>     <span class="mf">3.710</span><span class="p">,</span>     <span class="mf">4.011</span><span class="p">,</span>      <span class="mf">5.378</span><span class="p">,</span>    <span class="mf">4.049</span><span class="p">,</span>
+             <span class="mf">5.001</span><span class="p">,</span>   <span class="mf">4.831</span><span class="p">,</span>     <span class="mf">3.294</span><span class="p">,</span>     <span class="mf">3.282</span><span class="p">,</span>      <span class="mf">7.461</span><span class="p">,</span>   <span class="mf">13.218</span><span class="p">,</span>
+             <span class="mf">3.692</span><span class="p">,</span>   <span class="mf">4.952</span><span class="p">,</span>     <span class="mf">3.327</span><span class="p">,</span>     <span class="mf">3.412</span><span class="p">,</span>      <span class="mf">3.403</span><span class="p">,</span>    <span class="mf">3.333</span><span class="p">,</span>
+             <span class="mf">3.441</span><span class="p">,</span>   <span class="mf">2.907</span><span class="p">,</span>     <span class="mf">2.617</span><span class="p">,</span>     <span class="mf">2.503</span><span class="p">]</span>
+
+<span class="c1"># NGX Spot Prices</span>
+<span class="n">NGX</span> <span class="o">=</span>    <span class="p">[</span><span class="mf">3.8412</span><span class="p">,</span>    <span class="mf">5.4560</span><span class="p">,</span>    <span class="mf">5.1446</span><span class="p">,</span>    <span class="mf">4.4361</span><span class="p">,</span>     <span class="mf">4.4374</span><span class="p">,</span>   <span class="mf">4.3885</span><span class="p">,</span>
+          <span class="mf">4.2005</span><span class="p">,</span>    <span class="mf">3.8446</span><span class="p">,</span>    <span class="mf">3.8608</span><span class="p">,</span>    <span class="mf">3.7947</span><span class="p">,</span>     <span class="mf">3.7084</span><span class="p">,</span>   <span class="mf">3.6218</span><span class="p">,</span>
+          <span class="mf">3.0539</span><span class="p">,</span>    <span class="mf">2.7301</span><span class="p">,</span>    <span class="mf">2.7503</span><span class="p">,</span>    <span class="mf">2.5161</span><span class="p">,</span>     <span class="mf">2.5477</span><span class="p">,</span>   <span class="mf">2.5729</span><span class="p">,</span>
+          <span class="mf">2.5976</span><span class="p">,</span>    <span class="mf">2.7783</span><span class="p">,</span>    <span class="mf">2.7699</span><span class="p">,</span>    <span class="mf">2.6217</span><span class="p">,</span>     <span class="mf">2.4256</span><span class="p">,</span>   <span class="mf">2.3347</span><span class="p">,</span>
+          <span class="mf">2.3324</span><span class="p">,</span>    <span class="mf">2.0379</span><span class="p">,</span>    <span class="mf">1.5752</span><span class="p">,</span>    <span class="mf">1.3116</span><span class="p">]</span>
+
+<span class="n">NG_margin</span> <span class="o">=</span> <span class="mf">0.90</span>
+
+
+<span class="k">def</span> <span class="nf">make_graph</span><span class="p">(</span><span class="n">Months_Plotted</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+    <span class="kn">from</span> <span class="nn">statistics</span> <span class="kn">import</span> <span class="n">mean</span>
+
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="kn">as</span> <span class="nn">mdates</span>
+    <span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="n">savefig</span>
+    <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+    <span class="c1"># for nicer colours, importing is enough</span>
+    <span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+
+    <span class="sd">&quot;&quot;&quot;Convert *Months* to numbers&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Months</span><span class="p">)):</span>
+        <span class="n">year</span><span class="p">,</span> <span class="n">month</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">Months</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">))</span>
+        <span class="n">Months</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">mdates</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="sd">&quot;&quot;&quot;drop last month on RRO if we have more data than for the floating&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">RRO</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">Floating</span><span class="p">):</span>
+        <span class="n">my_RRO</span> <span class="o">=</span> <span class="n">RRO</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">my_Months</span> <span class="o">=</span> <span class="n">Months</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">my_RRO</span> <span class="o">=</span> <span class="n">RRO</span>
+        <span class="n">my_Months</span> <span class="o">=</span> <span class="n">Months</span>
+    <span class="n">my_Floating</span> <span class="o">=</span> <span class="n">Floating</span>
+    <span class="n">my_NG</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">NG_margin</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">NGX</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">my_Months</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">Months_Plotted</span><span class="p">:</span>
+        <span class="n">my_Floating</span> <span class="o">=</span> <span class="n">my_Floating</span><span class="p">[</span><span class="o">-</span><span class="n">Months_Plotted</span><span class="p">:]</span>
+        <span class="n">my_RRO</span> <span class="o">=</span> <span class="n">my_RRO</span><span class="p">[</span><span class="o">-</span><span class="n">Months_Plotted</span><span class="p">:]</span>
+        <span class="n">my_Months</span> <span class="o">=</span> <span class="n">my_Months</span><span class="p">[</span><span class="o">-</span><span class="n">Months_Plotted</span><span class="p">:]</span>
+        <span class="n">my_NG</span> <span class="o">=</span> <span class="n">my_NG</span><span class="p">[</span><span class="o">-</span><span class="n">Months_Plotted</span><span class="p">:]</span>
+
+    <span class="c1"># averages</span>
+    <span class="n">average_RRO</span> <span class="o">=</span> <span class="p">[</span><span class="n">mean</span><span class="p">(</span><span class="n">my_RRO</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">my_Months</span><span class="p">]</span>
+    <span class="n">average_Floating</span> <span class="o">=</span> <span class="p">[</span><span class="n">mean</span><span class="p">(</span><span class="n">my_Floating</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">my_Months</span><span class="p">]</span>
+    <span class="n">average_NG</span> <span class="o">=</span> <span class="p">[</span><span class="n">mean</span><span class="p">(</span><span class="n">my_NG</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">my_Months</span><span class="p">]</span>
+
+    <span class="sd">&quot;&quot;&quot;Now let&#39;s plot!&quot;&quot;&quot;</span>
+    <span class="c1"># make the final image 800px wide</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="o">/</span><span class="mi">72</span><span class="o">/</span><span class="mf">1.19</span><span class="p">,</span> <span class="p">(</span><span class="mi">800</span><span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">72</span><span class="o">/</span><span class="mf">1.19</span><span class="p">))</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+    <span class="c1"># Plot the two lines</span>
+    <span class="n">line_RRO</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">my_Months</span><span class="p">,</span> <span class="n">my_RRO</span><span class="p">,</span> <span class="n">sns</span><span class="o">.</span><span class="n">xkcd_rgb</span><span class="p">[</span><span class="s2">&quot;pale red&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;RRO&quot;</span><span class="p">)</span>
+    <span class="n">line_Burst</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">my_Months</span><span class="p">,</span> <span class="n">my_Floating</span><span class="p">,</span> <span class="n">sns</span><span class="o">.</span><span class="n">xkcd_rgb</span><span class="p">[</span><span class="s2">&quot;medium green&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Burst Energy&quot;</span><span class="p">)</span>
+    <span class="c1">#line_ave_RRO = graph.plot(my_Months, average_RRO, sns.xkcd_rgb[&quot;pale red&quot;], label=None, linestyle=&#39;--&#39;)</span>
+    <span class="c1">#line_ave_Burst = graph.plot(my_Months, average_Floating, sns.xkcd_rgb[&quot;medium green&quot;], label=None, linestyle=&#39;--&#39;)</span>
+
+
+    <span class="c1"># x axis -- list the months on the 1st</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">my_Months</span><span class="p">)</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="n">mdates</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">date</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%b &#39;%y&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">my_Months</span><span class="p">])</span>
+    <span class="c1"># y axis -- min is 0, label</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\u00A2</span><span class="s2"> / kWh, for Edmonton&quot;</span><span class="p">)</span>
+    <span class="c1"># add legend</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="c1"># current file location (this script file)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">__file__</span><span class="p">))</span>
+    <span class="c1"># drop script file name</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># location of where we want to save the graph</span>
+    <span class="c1"># p = p / &quot;content&quot; / &quot;images&quot; / &quot;floating-rate-vs-rro.png&quot;</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">/</span> <span class="s2">&quot;floating-rate-vs-rro.png&quot;</span>
+
+    <span class="n">savefig</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+    <span class="c1"># plt.show()</span>
+
+    <span class="sd">&quot;&quot;&quot;Now let&#39;s plot (Natural Gas!&quot;&quot;&quot;</span>
+    <span class="c1"># make the final image 800px wide</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="o">/</span><span class="mi">72</span><span class="o">/</span><span class="mf">1.19</span><span class="p">,</span> <span class="p">(</span><span class="mi">800</span><span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">72</span><span class="o">/</span><span class="mf">1.19</span><span class="p">))</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+    <span class="c1"># Plot the two lines</span>
+    <span class="c1">#line_RRO = graph.plot(my_Months, my_RRO, sns.xkcd_rgb[&quot;pale red&quot;], label=&quot;RRO&quot;)</span>
+    <span class="n">line_Burst</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">my_Months</span><span class="p">,</span> <span class="n">my_NG</span><span class="p">,</span> <span class="n">sns</span><span class="o">.</span><span class="n">xkcd_rgb</span><span class="p">[</span><span class="s2">&quot;medium green&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Burst Energy&quot;</span><span class="p">)</span>
+    <span class="c1">#line_ave_RRO = graph.plot(my_Months, average_RRO, sns.xkcd_rgb[&quot;pale red&quot;], label=None, linestyle=&#39;--&#39;)</span>
+    <span class="c1">#line_ave_Burst = graph.plot(my_Months, average_NG, sns.xkcd_rgb[&quot;medium green&quot;], label=None, linestyle=&#39;--&#39;)</span>
+
+
+    <span class="c1"># x axis -- list the months on the 1st</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">my_Months</span><span class="p">)</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="n">mdates</span><span class="o">.</span><span class="n">num2date</span><span class="p">(</span><span class="n">date</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%b &#39;%y&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">my_Months</span><span class="p">])</span>
+    <span class="c1"># y axis -- min is 0, label</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$ / GJ, for Alberta&quot;</span><span class="p">)</span>
+    <span class="c1"># add legend</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="c1"># current file location (this script file)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">__file__</span><span class="p">))</span>
+    <span class="c1"># drop script file name</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># location of where we want to save the graph</span>
+    <span class="c1"># p = p / &quot;content&quot; / &quot;images&quot; / &quot;floating-rate-vs-rro.png&quot;</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">/</span> <span class="s2">&quot;natural-gas.png&quot;</span>
+
+    <span class="n">savefig</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+    <span class="c1"># plt.show()</span>
+
+
+<span class="k">def</span> <span class="nf">averages</span><span class="p">(</span><span class="n">Months_Plotted</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">statistics</span>
+
+    <span class="sd">&quot;&quot;&quot;drop last month on RRO if we have more data than for the floating&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">RRO</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">Floating</span><span class="p">):</span>
+        <span class="n">my_RRO</span> <span class="o">=</span> <span class="n">RRO</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">my_Months</span> <span class="o">=</span> <span class="n">Months</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">my_RRO</span> <span class="o">=</span> <span class="n">RRO</span>
+        <span class="n">my_Months</span> <span class="o">=</span> <span class="n">Months</span>
+    <span class="n">my_Floating</span> <span class="o">=</span> <span class="n">Floating</span>
+    <span class="n">my_NG</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">NG_margin</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">NGX</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">my_Months</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">Months_Plotted</span><span class="p">:</span>
+        <span class="n">my_Floating</span> <span class="o">=</span> <span class="n">my_Floating</span><span class="p">[</span><span class="o">-</span><span class="n">Months_Plotted</span><span class="p">:]</span>
+        <span class="n">my_RRO</span> <span class="o">=</span> <span class="n">my_RRO</span><span class="p">[</span><span class="o">-</span><span class="n">Months_Plotted</span><span class="p">:]</span>
+        <span class="n">my_Months</span> <span class="o">=</span> <span class="n">my_Months</span><span class="p">[</span><span class="o">-</span><span class="n">Months_Plotted</span><span class="p">:]</span>
+        <span class="n">my_NG</span> <span class="o">=</span> <span class="n">my_NG</span><span class="p">[</span><span class="o">-</span><span class="n">Months_Plotted</span><span class="p">:]</span>
+
+    <span class="n">ave_RRO</span> <span class="o">=</span> <span class="n">statistics</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">my_RRO</span><span class="p">)</span>
+    <span class="n">ave_Floating</span> <span class="o">=</span> <span class="n">statistics</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">my_Floating</span><span class="p">)</span>
+    <span class="n">ave_NG</span> <span class="o">=</span> <span class="n">statistics</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">my_NG</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;For the last {} months, the average is:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Months_Plotted</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;{}For the RRO,           {:.3f} ¢/kWh&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="n">ave_RRO</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;{}For the Floating rate, {:.3f} ¢/kWh&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="n">ave_Floating</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;{}For natural gas,      ${:.2f} /GJ&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="n">ave_NG</span><span class="p">))</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">make_graph</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">averages</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">averages</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</pre></div>
+</td></tr></table>
+
+<!-- reveiw -->
+        </div>
+    </section>
+
+		</div>
+    </div>
+</div>
+
+
+
+
+<footer>
+    <div class="container">
+        <hr>
+        <div class="row">
+            <div class="col-sm-10 col-xs-8">
+                &copy;  William Minchin
+            </div>
+            <div class="col-sm-2 col-xs-4"><p class="pull-right"><span class="fa fa-arrow-up"></span> <a href="#">Back to top</a></p></div>
+        </div>
+    </div>
+</footer>
+	<script src="/theme/js/jquery.min.js" type="text/javascript"></script>
+
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="/theme/js/bootstrap.min.js" type="text/javascript"></script>
+
+	<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+	<script src="/theme/js/respond.min.js" type="text/javascript"></script>
+
+
+    <!-- Google Analytics Universal -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-384291-3', 'minchin.ca');
+        ga('send', 'pageview');
+    </script>
+    <!-- End Google Analytics Universal Code -->
+</body>
+</html>

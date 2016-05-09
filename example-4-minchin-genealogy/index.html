@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>Example 4: Minchin Genealogy - Introduction to Pelican</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <!-- Open Graph tags -->
+            <meta property="og:type" content="article"/>
+            <meta property="og:title" content="Example 4: Minchin Genealogy"/>
+            <meta property="og:url" content="/example-4-minchin-genealogy/"/>
+	
+    <!-- Bootstrap -->
+        <link href="/theme/css/bootstrap.flatly.min.css" rel="stylesheet" type="text/css"/>
+	    	<link href="/theme/css/typogrify.css" rel="stylesheet" type="text/css" />
+	    	<link href="/theme/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+	    	<link href="/theme/css/pygments/solarizeddark.css" rel="stylesheet" type="text/css" />
+	    	<link href="/css/intro-to-pelican.css" rel="stylesheet" type="text/css" />
+
+
+</head>
+<body>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-3">
+			<div class="sidebar-nav">
+				<div class="navbar navbar-default" role="navigation">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a href="/" class="navbar-brand">
+Introduction to Pelican						</a>
+					</div>
+					<div class="collapse navbar-collapse sidebar-navbar-collapse navbar-nonheader">
+						<ul class="nav navbar-nav">
+									 <li><a href="/html-was-simple/">HTML Was Simple</a></li>
+									 <li><a href="/wordperfect-reveal-codes/">Wordperfect Reveal Codes</a></li>
+									 <li><a href="/lamp-stack/">Lamp Stack</a></li>
+									 <li><a href="/downtime/">Downtime</a></li>
+									 <li><a href="/competitors-to-pelican/">Competitors to Pelican</a></li>
+									 <li><a href="/pelican-building-blocks/">Pelican Building Blocks</a></li>
+									 <li><a href="/markdown/">Markdown</a></li>
+									 <li><a href="/restructured-text/">Restructured Text</a></li>
+									 <li><a href="/html-for-pelican/">HTML for Pelican</a></li>
+									 <li><a href="/jinja-templating-engine-for-pelican/">Jinja: Templating Engine for Pelican</a></li>
+									 <li><a href="/advanced-jinja/">Advanced Jinja</a></li>
+									 <li><a href="/responsive-design/">Responsive Design</a></li>
+									 <li><a href="/pelican-quickstart/">Pelican Quickstart</a></li>
+									 <li><a href="/pelican-internal-links/">Pelican Internal Links</a></li>
+									 <li><a href="/quirks/">Quirks</a></li>
+									 <li><a href="/pelicanconfpy/">pelicanconf.py</a></li>
+									 <li><a href="/example-1-jrnl/">Example 1: Jrnl</a></li>
+									 <li><a href="/sample-jrnl-exported-entry/">Sample JRNL exported Entry</a></li>
+									 <li><a href="/jrnl-configuration/">JRNL Configuration</a></li>
+									 <li><a href="/custom-direct-template/">Custom Direct Template</a></li>
+									 <li><a href="/example-2-burst-energy/">Example 2: Burst Energy</a></li>
+									 <li><a href="/burst-energy-configuration/">Burst Energy Configuration</a></li>
+									 <li><a href="/example-3-minchinca/">Example 3: Minchin.ca</a></li>
+									 <li><a href="/minchinca-configuration/">Minchin.ca Configuration</a></li>
+									 <li class="active"><a href="/example-4-minchin-genealogy/">Example 4: Minchin Genealogy</a></li>
+									 <li><a href="/genealogy-configuration/">Genealogy Configuration</a></li>
+						</ul>
+					</div> <!-- /.navbar-collapse -->
+				</div>
+			</div> <!-- /.sidebar-nav -->
+		</div>
+
+
+		<div class="col-sm-9">
+
+    <ol class="breadcrumb">
+        <li><a href="" title="Introduction to Pelican"><span class="fa fa-home fa-lg"></span></a></li>
+            <li class="active"><a href="/example-4-minchin-genealogy/" title="Example 4: Minchin Genealogy">Example 4: Minchin Genealogy</a></li>
+    </ol>
+
+    <section id="content" class="body">
+        <h1 class="entry-title">Example 4: Minchin Genealogy</h1>
+        
+        <div class="entry-content">
+            <ul>
+<li><a href="/webpages/minchinca/minchin.ca/genealogy/index.html">Example</a></li>
+<li>part of my personal website</li>
+<li>uses the same theme as the rest of <em>Minchin.ca</em></li>
+<li>uses automation to deal with the source data generation and final upload</li>
+<li>hosted on Github pages as a <em>project page</em></li>
+<li>email "comments"</li>
+</ul>
+<h3>gen_upload.py</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844
+845
+846
+847
+848
+849
+850
+851
+852
+853
+854
+855
+856
+857
+858
+859
+860
+861
+862
+863
+864
+865</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&#39;&#39;&#39;Genealogy Uploader</span>
+<span class="sd">v.3.2.3 - WM - January 7, 2016</span>
+
+<span class="sd">This script serves to semi-automate the building and uploading of my</span>
+<span class="sd">genealogy website. It is intended to be semi-interactive and run from the</span>
+<span class="sd">command line.&#39;&#39;&#39;</span>
+
+
+<span class="kn">import</span> <span class="nn">codecs</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">fileinput</span>
+<span class="kn">import</span> <span class="nn">multiprocessing</span> <span class="kn">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">textwrap</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+<span class="kn">import</span> <span class="nn">webbrowser</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">colorama</span>
+<span class="kn">from</span> <span class="nn">colorama</span> <span class="kn">import</span> <span class="n">Fore</span><span class="p">,</span> <span class="n">Style</span>
+<span class="kn">from</span> <span class="nn">invoke</span> <span class="kn">import</span> <span class="n">run</span><span class="p">,</span> <span class="n">task</span>
+<span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">winshell</span>
+
+<span class="kn">import</span> <span class="nn">minchin.text</span>
+
+<span class="c1"># from colorama import Back</span>
+
+
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.2.3&#39;</span>
+<span class="n">colorama</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+
+
+<span class="n">COPYRIGHT_START_YEAR</span> <span class="o">=</span> <span class="mi">1987</span>
+<span class="n">ADAM_LINK</span> <span class="o">=</span> <span class="s2">&quot;http://gigatrees.com&quot;</span>
+<span class="n">ADAM_FOOTER</span> <span class="o">=</span> <span class="s2">&quot;&lt;p&gt;&lt;strong&gt;Are we related?&lt;/strong&gt; Are you a long lost cousin? Spotted an error here? This website remains a work-in-progress and I would love to hear from you. Drop me a line at minchinweb [at] gmail [dot] com.&lt;/p&gt;&quot;</span>
+<span class="n">INDENT</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">*</span><span class="mi">4</span>
+<span class="n">GITHUB_FOLDER</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;S:\Documents\GitHub\genealogy-gh-pages&quot;</span><span class="p">)</span>
+<span class="n">PHOTO_FOLER</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;S:\Documents\Genealogy&quot;</span><span class="p">)</span>
+<span class="n">DOWNLOAD_FOLDER</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;S:\Downloads\Chrome&quot;</span><span class="p">)</span>
+<span class="n">URL_ROOT</span> <span class="o">=</span> <span class="s2">&quot;http://minchin.ca/genealogy&quot;</span>
+<span class="n">REPO_URL</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/MinchinWeb/genealogy.git&quot;</span>
+<span class="n">ADAM_PREFIX</span> <span class="o">=</span> <span class="s1">&#39;william-minchin-gigatree-offline-&#39;</span>
+<span class="n">TODAY_STR</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">year</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span> <span class="o">+</span> <span class="nb">str</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">month</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">day</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">GEDCOM_EXPECTED</span> <span class="o">=</span> <span class="s1">&#39;William &#39;</span> <span class="o">+</span> <span class="n">TODAY_STR</span> <span class="o">+</span> <span class="s1">&#39;.ged&#39;</span>
+<span class="n">USER_FOLDER</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~&#39;</span><span class="p">))</span>
+<span class="n">MY_GEDCOM</span> <span class="o">=</span> <span class="n">USER_FOLDER</span> <span class="o">/</span> <span class="s1">&#39;Desktop&#39;</span> <span class="o">/</span> <span class="n">GEDCOM_EXPECTED</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="n">step_no</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># step counter</span>
+<span class="c1"># folder where the script is saved</span>
+<span class="n">HERE_FOLDER</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">__file__</span><span class="p">)))</span>
+<span class="n">WORKING_FOLDER</span> <span class="o">=</span> <span class="n">HERE_FOLDER</span>  <span class="c1"># current working directory</span>
+<span class="n">CONTENT_FOLDER</span> <span class="o">=</span> <span class="n">HERE_FOLDER</span> <span class="o">/</span> <span class="s1">&#39;content&#39;</span> <span class="o">/</span> <span class="s1">&#39;pages&#39;</span>
+<span class="n">adam_zip</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>               <span class="c1"># set later</span>
+<span class="n">tracking_filename</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>      <span class="c1"># set later</span>
+
+<span class="c1"># globals for Lenovo X201</span>
+<span class="c1">#GITHUB_FOLDER = Path(r&quot;C:\Users\User\Documents\GitHub\genealogy-gh-pages&quot;)</span>
+<span class="c1">#PHOTO_FOLER = Path(r&quot;C:\Users\User\Documents\Genealogy&quot;)</span>
+<span class="c1">#DOWNLOAD_FOLDER = Path(r&quot;C:\Users\User\Downloads&quot;)</span>
+
+
+<span class="k">def</span> <span class="nf">addimage</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Take the file listed in image, finds in my genealogy photo directory, and</span>
+<span class="sd">    adds it to the GitHub folder.&#39;&#39;&#39;</span>
+    <span class="sd">&#39;&#39;&#39;TO-DO: implement this!!&#39;&#39;&#39;</span>
+    <span class="k">pass</span>
+
+
+<span class="c1"># multiple replacement</span>
+<span class="c1"># from  http://stackoverflow.com/questions/6116978/python-replace-multiple-strings</span>
+<span class="c1">#</span>
+<span class="c1"># Usage:</span>
+<span class="c1"># &gt;&gt;&gt; replacements = (u&quot;café&quot;, u&quot;tea&quot;), (u&quot;tea&quot;, u&quot;café&quot;), (u&quot;like&quot;, u&quot;love&quot;)</span>
+<span class="c1"># &gt;&gt;&gt; print multiple_replace(u&quot;Do you like café? No, I prefer tea.&quot;, *replacements)</span>
+<span class="c1"># Do you love tea? No, I prefer café.</span>
+<span class="k">def</span> <span class="nf">multiple_replacer</span><span class="p">(</span><span class="o">*</span><span class="n">key_values</span><span class="p">):</span>
+    <span class="n">replace_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">key_values</span><span class="p">)</span>
+    <span class="n">replacement_function</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">match</span><span class="p">:</span> <span class="n">replace_dict</span><span class="p">[</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">key_values</span><span class="p">]),</span> <span class="n">re</span><span class="o">.</span><span class="n">M</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+    <span class="k">return</span> <span class="k">lambda</span> <span class="n">string</span><span class="p">:</span> <span class="n">pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">replacement_function</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">multiple_replace</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="n">key_values</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">multiple_replacer</span><span class="p">(</span><span class="o">*</span><span class="n">key_values</span><span class="p">)(</span><span class="n">string</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">get_adam_version</span><span class="p">():</span>
+    <span class="n">soup_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span> <span class="o">/</span> <span class="s1">&#39;names.html&#39;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">soup_file</span><span class="p">,</span> <span class="s2">&quot;lxml&quot;</span><span class="p">)</span>
+    <span class="n">soup_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="bp">True</span><span class="p">,</span> <span class="s2">&quot;gt-version&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>  <span class="c1"># &#39;Built by Adam 1.35.0.0&#39; or the like</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">export_gedcom</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Export from RootsMagic.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="k">global</span> <span class="n">start_time</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Export from RootsMagic.&quot;</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;{}call the file {}{}{} and save it to the desktop&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">INDENT</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span><span class="p">,</span> <span class="n">GEDCOM_EXPECTED</span><span class="p">,</span> <span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;{}do not include LDS information&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">INDENT</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;{}no need to privatize individuals (at this step)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">INDENT</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">query_yes_quit</span><span class="p">(</span><span class="s2">&quot;{}Next?&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">INDENT</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span><span class="p">):</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">MY_GEDCOM</span><span class="p">)</span><span class="o">.</span><span class="n">st_ctime</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;{}Your file doesn&#39;t seem to exist. Exiting...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">INDENT</span><span class="p">))</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">clean_gedcom</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Cleaning up GEDCOM.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Cleaning up GEDCOM.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># replace image paths</span>
+    <span class="n">gedcom_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">MY_GEDCOM</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>  <span class="c1"># add failsafe is the fail doesn&#39;t exist yet or is still being written to</span>
+    <span class="n">subject</span> <span class="o">=</span> <span class="n">gedcom_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">gedcom_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;S:</span><span class="se">\\</span><span class="s1">Documents</span><span class="se">\\</span><span class="s1">Genealogy</span><span class="se">\\</span><span class="s1">([0-9]+[\.[a-z]+]*\.? )*&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>  <span class="c1"># path start</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;images/&#39;</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
+    <span class="n">pattern2</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;(images.*)</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># reverse slashes in rest of path</span>
+    <span class="n">result2</span> <span class="o">=</span> <span class="n">pattern2</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">r&#39;\1/&#39;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+    <span class="n">result3</span> <span class="o">=</span> <span class="n">pattern2</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">r&#39;\1/&#39;</span><span class="p">,</span> <span class="n">result2</span><span class="p">)</span>
+
+    <span class="n">f_out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">MY_GEDCOM</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">result3</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">upload_gedcom</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Upload GEDCOM to Gigatree.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. The file is now ready to upload to Gigatrees.&quot;</span><span class="p">)</span>
+
+    <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;http://gigatrees.com/toolbox/gigatree&quot;</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;{}log-in (using Facebook)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">INDENT</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;{}now click &#39;generate report&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">INDENT</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span>
+    <span class="c1"># check to see if we&#39;re logged in</span>
+    <span class="c1"># log in, if needed</span>
+    <span class="c1"># discard old GEDCOM</span>
+    <span class="c1"># upload new GEDCOM</span>
+    <span class="c1"># run generator</span>
+    <span class="c1"># download new output</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">check_images</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Check which images have already been uploaded.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Checking images.&quot;</span><span class="p">)</span>
+
+    <span class="n">gedcom_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">MY_GEDCOM</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+    <span class="n">subject</span> <span class="o">=</span> <span class="n">gedcom_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">gedcom_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="n">missing_matches</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">all_matches</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">wrapper</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">TextWrapper</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">79</span><span class="p">,</span> <span class="n">initial_indent</span><span class="o">=</span><span class="n">INDENT</span><span class="p">,</span> <span class="n">subsequent_indent</span><span class="o">=</span><span class="n">INDENT</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">pattern_bad</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;missing &quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;(images/.+\.(jpg|jpeg|png|gif|pdf))&#39;</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">):</span>
+        <span class="n">all_matches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">match</span><span class="p">)</span>
+
+    <span class="n">all_matches</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">all_matches</span><span class="p">))</span>  <span class="c1"># remove duplicates and sort</span>
+    <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">all_matches</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">URL_ROOT</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">requests</span><span class="o">.</span><span class="n">codes</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
+            <span class="n">mytext</span> <span class="o">=</span> <span class="n">wrapper</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">&quot;missing {} -&gt; {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="p">),</span> <span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">pattern_bad</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">Fore</span><span class="o">.</span><span class="n">RED</span> <span class="o">+</span> <span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span> <span class="o">+</span> <span class="s2">&quot;missing &quot;</span> <span class="o">+</span> <span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="p">,</span> <span class="n">mytext</span><span class="p">))</span>
+            <span class="n">missing_matches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">matches</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;{}{} images matching. No missing images.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">INDENT</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">matches</span><span class="p">)))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;{}{} images matching.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">INDENT</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">matches</span><span class="p">)))</span>
+        <span class="n">q_add_images</span> <span class="o">=</span> <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">query_yes_no_all</span><span class="p">(</span><span class="s2">&quot;{}{} missing images. Add them?&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">INDENT</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">missing_matches</span><span class="p">))),</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;no&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">q_add_images</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># all</span>
+            <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">missing_matches</span><span class="p">:</span>
+                <span class="n">addimage</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">q_add_images</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># yes</span>
+            <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">missing_matches</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">querry_yes_no</span><span class="p">(</span><span class="s2">&quot;{}Add {}?&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">INDENT</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">image</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span><span class="p">):</span>
+                    <span class="n">addimage</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+                    <span class="c1"># TO-DO: implement this!</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># no</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># write missing images to a file</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;missing-images.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Genealogy Uploader, v.{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">__version__</span><span class="p">)))</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{}</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">MY_GEDCOM</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">missing</span> <span class="ow">in</span> <span class="n">missing_matches</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">missing</span><span class="p">))</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">delete_old_output</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Delete old Pelican output.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Deleting old Pelican output.&quot;</span><span class="p">)</span>
+
+    <span class="n">to_delete</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">html_files</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">GITHUB_FOLDER</span><span class="p">))</span>
+    <span class="n">all_files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">GITHUB_FOLDER</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">all_files</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">filename</span> <span class="o">==</span> <span class="p">(</span><span class="s1">&#39;.git&#39;</span><span class="p">):</span>
+            <span class="k">pass</span>  <span class="c1"># don&#39;t drop the GIT repo</span>
+        <span class="k">elif</span> <span class="n">filename</span> <span class="o">==</span> <span class="p">(</span><span class="s1">&#39;images&#39;</span><span class="p">):</span>
+            <span class="k">pass</span>  <span class="c1"># don&#39;t drop the image folder</span>
+        <span class="k">elif</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.html&#39;</span><span class="p">):</span>
+            <span class="n">html_files</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">to_delete</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># delete HTML files</span>
+    <span class="n">run</span><span class="p">(</span><span class="s1">&#39;del *.html -y&#39;</span><span class="p">)</span>
+    <span class="n">bar</span> <span class="o">=</span> <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">progressbar</span><span class="p">(</span><span class="n">maximum</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">to_delete</span><span class="p">)</span> <span class="o">+</span> <span class="n">html_files</span><span class="p">)</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="n">html_files</span>
+    <span class="n">bar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
+
+    <span class="c1"># delete everything else</span>
+    <span class="k">for</span> <span class="n">my_file</span> <span class="ow">in</span> <span class="n">to_delete</span><span class="p">:</span>
+        <span class="n">winshell</span><span class="o">.</span><span class="n">delete_file</span><span class="p">(</span><span class="n">my_file</span><span class="p">,</span> <span class="n">no_confirm</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">allow_undo</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">bar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">{}{} files deleted.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">INDENT</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">to_delete</span><span class="p">)</span> <span class="o">+</span> <span class="n">html_files</span><span class="p">)))</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">delete_old_adam</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Delete old Gigatrees output.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Deleting old Gigatree output.&quot;</span><span class="p">)</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span><span class="p">))</span>
+    <span class="n">run</span><span class="p">(</span><span class="s1">&#39;del *.* /q&#39;</span><span class="p">)</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">get_new_adam</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Get new Gigatree output.&#39;&#39;&#39;</span>
+    <span class="c1"># TO-DO: allow override of &#39;start time&#39;</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="k">global</span> <span class="n">adam_zip</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Get new Gigatree output.&quot;</span><span class="p">)</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">DOWNLOAD_FOLDER</span><span class="p">))</span>
+    <span class="n">gedcom_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">MY_GEDCOM</span><span class="p">))</span><span class="o">.</span><span class="n">st_ctime</span><span class="p">)</span>
+
+    <span class="n">count_loops</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">all_files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">DOWNLOAD_FOLDER</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">all_files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">ADAM_PREFIX</span><span class="p">)</span> <span class="ow">and</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="o">.</span><span class="n">st_ctime</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">gedcom_time</span><span class="p">:</span>
+                    <span class="n">adam_zip</span> <span class="o">=</span> <span class="n">filename</span>
+        <span class="k">if</span> <span class="n">adam_zip</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">adam_zip</span><span class="p">)</span><span class="o">.</span><span class="n">st_size</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">count_loops</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">count_loops</span> <span class="o">&gt;</span> <span class="mi">60</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">query_yes_quit</span><span class="p">(</span><span class="s2">&quot;{}We&#39;ve waited 30 minutes. Keep waiting?&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">INDENT</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">False</span><span class="p">:</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">count_loops</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+
+    <span class="n">winshell</span><span class="o">.</span><span class="n">copy_file</span><span class="p">(</span><span class="n">adam_zip</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">step_unzip</span><span class="p">():</span>
+    <span class="c1"># Test 1: 6:48.948 for 9,999 files</span>
+    <span class="c1"># Test 2: 2:05.188204 for 11,1698 files</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">start_time_local</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Unzip new Gigatree output (Zipfile).&quot;</span><span class="p">)</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span><span class="p">))</span>
+    <span class="n">zf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">adam_zip</span><span class="p">)</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">extractall</span><span class="p">()</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">INDENT</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time_local</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">step_unzip_faster</span><span class="p">():</span>
+    <span class="c1"># see http://dmarkey.com/wordpress/2011/10/15/python-zipfile-speedup-tips/</span>
+    <span class="c1"># Test 1: 4:44.459 for 9,999 files</span>
+    <span class="c1"># this doesn&#39;t appear to work on Python 3.5.1, says it&#39;s not a zip file</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">start_time_local</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Unzip new Gigatree output (Zipfile faster).&quot;</span><span class="p">)</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span><span class="p">))</span>
+    <span class="n">zf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">adam_zip</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">))</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">extractall</span><span class="p">()</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">INDENT</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time_local</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">step_unzip_czip</span><span class="p">():</span>
+    <span class="c1"># Test 1: 4:46.109 for 9,999 files</span>
+    <span class="c1"># Test 2: xx for 11,1698 files</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">start_time_local</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Unzip new Gigatree output (czip).&quot;</span><span class="p">)</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span><span class="p">))</span>
+    <span class="n">zf</span> <span class="o">=</span> <span class="n">czipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">adam_zip</span><span class="p">)</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">extractall</span><span class="p">()</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">INDENT</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time_local</span><span class="p">)</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">step_unzip_7zip</span><span class="p">():</span>
+    <span class="c1"># Test 1: 5:09.974 for 9,999 files</span>
+    <span class="c1"># Test 2: 1:43.229726 for 11,1698 files</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">start_time_local</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Unzip new Gigatree output (7-zip).&quot;</span><span class="p">)</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span><span class="p">))</span>
+    <span class="n">run</span><span class="p">(</span><span class="s1">&#39;&quot;C:</span><span class="se">\\</span><span class="s1">Program Files</span><span class="se">\\</span><span class="s1">7-Zip</span><span class="se">\\</span><span class="s1">7z.exe&quot; e {} &gt; nul&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">adam_zip</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">INDENT</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time_local</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">step_unzip_infozip</span><span class="p">():</span>
+    <span class="c1"># Test 2: 1:51.550671 for 11,1698 files</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">start_time_local</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Unzip new Gigatree output (unzip.exe).&quot;</span><span class="p">)</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span><span class="p">))</span>
+    <span class="n">run</span><span class="p">(</span><span class="s1">&#39;C:</span><span class="se">\\</span><span class="s1">bin</span><span class="se">\\</span><span class="s1">unzip.exe {} &gt; nul&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">adam_zip</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">INDENT</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time_local</span><span class="p">)</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">unzip_adam</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Unzip new Adam output.&#39;&#39;&#39;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">step_unzip_7zip</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">step_unzip</span><span class="p">()</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">php_to_html</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Change any .php files to .html.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Rename all .php files.&quot;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span><span class="p">))</span>
+    <span class="n">run</span><span class="p">(</span><span class="s1">&#39;rename *.php *.html&#39;</span><span class="p">)</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">copy_js</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Copy Gigatree .js files.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Copy Gigatree .js files.&quot;</span><span class="p">)</span>
+    <span class="c1"># files are copied from the base CONTENT_FOLDER (where they are put by unzipping</span>
+    <span class="c1"># the adam.zip) to the CONTENT_FOLDER / js (where Pelican will find them)</span>
+
+    <span class="n">js_files</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;tab-list-handler.js&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;tooltip-handler.js&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;graph-handler.js&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;gigatrees-map-min.js&#39;</span><span class="p">,</span> <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">my_file</span> <span class="ow">in</span> <span class="n">js_files</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">winshell</span><span class="o">.</span><span class="n">delete_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span> <span class="o">/</span> <span class="s1">&#39;js&#39;</span> <span class="o">/</span> <span class="n">my_file</span><span class="p">),</span> <span class="n">no_confirm</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">allow_undo</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="n">winshell</span><span class="o">.</span><span class="n">copy_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span> <span class="o">/</span> <span class="n">my_file</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span> <span class="o">/</span> <span class="s1">&#39;js&#39;</span> <span class="o">/</span> <span class="n">my_file</span><span class="p">),</span> <span class="n">no_confirm</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+
+<span class="c1"># not needed; the elements of the &#39;gigatrees.css&#39; needed have been folded</span>
+<span class="c1"># directly into the theme LESS files</span>
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">copy_css</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Copy Gigatree .css files.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Copy Gigatree .css files.&quot;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span><span class="p">))</span>
+
+    <span class="n">css_files</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;gigatrees.css&#39;</span><span class="p">,</span> <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">my_file</span> <span class="ow">in</span> <span class="n">css_files</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">winshell</span><span class="o">.</span><span class="n">delete_file</span><span class="p">(</span><span class="s2">&quot;../css/&quot;</span> <span class="o">+</span> <span class="n">my_file</span><span class="p">,</span> <span class="n">no_confirm</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">allow_undo</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="n">winshell</span><span class="o">.</span><span class="n">copy_file</span><span class="p">(</span><span class="n">my_file</span><span class="p">,</span> <span class="s2">&quot;../css/&quot;</span> <span class="o">+</span> <span class="n">my_file</span><span class="p">,</span> <span class="n">no_confirm</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">copy_img</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Copy Gigatree image files.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Copy Gigatree image files.&quot;</span><span class="p">)</span>
+    <span class="c1"># files are copied from the base CONTENT_FOLDER (where they are put by unzipping</span>
+    <span class="c1"># the adam.zip) to the CONTENT_FOLDER / img (where Pelican will find them)</span>
+
+    <span class="n">img_files</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;arrowd.png&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;arrowl.png&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;arrowr.png&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;arrowu.png&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;bg-black.png&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;bg-pattern.png&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;mapicon_f.png&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;mapicon_m.png&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;mapicon_u.png&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;mapmarker1.png&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;mapmarker2.png&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;mapmarker3.png&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;mapmarker4.png&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;mapmarker5.png&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;avatar.jpg&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;image.jpg&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;pdf.jpg&#39;</span><span class="p">,</span> <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">my_file</span> <span class="ow">in</span> <span class="n">img_files</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">winshell</span><span class="o">.</span><span class="n">delete_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span> <span class="o">/</span> <span class="s1">&#39;img&#39;</span> <span class="o">/</span> <span class="n">my_file</span><span class="p">),</span> <span class="n">no_confirm</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">allow_undo</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="n">winshell</span><span class="o">.</span><span class="n">copy_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span> <span class="o">/</span> <span class="n">my_file</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span> <span class="o">/</span> <span class="s1">&#39;img&#39;</span> <span class="o">/</span> <span class="n">my_file</span><span class="p">),</span> <span class="n">no_confirm</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">replace_index</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Copy over index.md, 404.md.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Copy over index.md, 404.md.&quot;</span><span class="p">)</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">my_file</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;index.md&quot;</span><span class="p">,</span> <span class="s2">&quot;index.html&quot;</span><span class="p">,</span> <span class="s2">&quot;404.md&quot;</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">winshell</span><span class="o">.</span><span class="n">delete_file</span><span class="p">(</span><span class="n">my_file</span><span class="p">,</span> <span class="n">no_confirm</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">allow_undo</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="k">for</span> <span class="n">my_file</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;index.md&quot;</span><span class="p">,</span> <span class="s2">&quot;404.md&quot;</span><span class="p">):</span>
+        <span class="n">winshell</span><span class="o">.</span><span class="n">copy_file</span><span class="p">(</span><span class="s2">&quot;../../_unchanging_pages/{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">my_file</span><span class="p">),</span> <span class="n">my_file</span><span class="p">,</span> <span class="n">no_confirm</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">set_pelican_variables</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Sets a couple of variables that Pelican uses while generating the site.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Setting up Pelican.&quot;</span><span class="p">)</span>
+
+    <span class="n">adam_version_text</span> <span class="o">=</span> <span class="n">get_adam_version</span><span class="p">()</span>  <span class="c1"># &#39;Built by Adam 1.35.0.0 &#39; or the like</span>
+    <span class="n">adam_version_text</span> <span class="o">=</span> <span class="n">adam_version_text</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">date_in_text</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%B </span><span class="si">%d</span><span class="s2">, %Y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; 0&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>  <span class="c1"># &#39;January 7, 2014&#39; or the like</span>
+    <span class="n">year_range</span> <span class="o">=</span> <span class="s2">&quot;{}-{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">COPYRIGHT_START_YEAR</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{}{} - {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">INDENT</span><span class="p">,</span> <span class="n">adam_version_text</span><span class="p">,</span> <span class="n">date_in_text</span><span class="p">))</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">WORKING_FOLDER</span> <span class="o">/</span> <span class="s1">&#39;adamconf.py&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# Genealogy Uploader, v.{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">__version__</span><span class="p">)))</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# {}</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">MY_GEDCOM</span><span class="p">)))</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;ADAM = True</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;ADAM_VERSION = &quot;{}&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">adam_version_text</span><span class="p">))</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;ADAM_UPDATED = &quot;{}&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">date_in_text</span><span class="p">))</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;ADAM_COPY_DATE = &quot;{}&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">year_range</span><span class="p">))</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;ADAM_LINK = &quot;{}&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ADAM_LINK</span><span class="p">))</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;ADAM_FOOTER = &quot;{}&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ADAM_FOOTER</span><span class="p">))</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;ADAM_PUBLISH = True</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">replace_emails</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Hide emails in Sources.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Hiding Emails.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># replace and hide emails; but some of these are over lines breaks,</span>
+    <span class="c1">#  so we&#39;ll have to search and replace through the output</span>
+    <span class="c1"># We are actually only considering &#39;Sources&#39;, as that&#39;s where</span>
+    <span class="c1">#  all the emails seem to be...</span>
+    <span class="n">replacements</span> <span class="o">=</span>  <span class="p">(</span><span class="s2">&quot;w_minchin@hotmail.com&quot;</span><span class="p">,</span>           <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;w.minchin@gmail.com&quot;</span><span class="p">,</span>             <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;webmaster@minchin.ca&quot;</span><span class="p">,</span>            <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;minchinweb@gmail.com&quot;</span><span class="p">,</span>            <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;nysgys@shaw.ca&quot;</span><span class="p">,</span>                  <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;bunburypr@ozemail.com.au&quot;</span><span class="p">,</span>        <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;turtle@turtlebunbury.com&quot;</span><span class="p">,</span>        <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;howard.blaxland@gmail.com&quot;</span><span class="p">,</span>       <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;kenhazel@gmail.com&quot;</span><span class="p">,</span>              <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;canrcr@gmail.com&quot;</span><span class="p">,</span>                <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;david@westerhamworkshop.co.uk&quot;</span><span class="p">,</span>   <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;d3gl@shaw.ca&quot;</span><span class="p">,</span>                    <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;cardena.depper@gmx.net&quot;</span><span class="p">,</span>          <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;redjoanne_58@hotmail.com&quot;</span><span class="p">,</span>        <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;lbwong@charter.net&quot;</span><span class="p">,</span>              <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;djcmgf@optonline.net&quot;</span><span class="p">,</span>            <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;jerry.doyle@sbcglobal.net&quot;</span><span class="p">,</span>       <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;sonofcam@bigpond.com&quot;</span><span class="p">,</span>            <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;stewdee@hotmail.com&quot;</span><span class="p">,</span>             <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;nysgys@shaw.ca&quot;</span><span class="p">,</span>                  <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;gloog@eircom.net&quot;</span><span class="p">,</span>                <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span> \
+                    <span class="p">(</span><span class="s2">&quot;donaldminchin@yahoo.com&quot;</span><span class="p">,</span>         <span class="s1">&#39;[email redacted]&#39;</span><span class="p">),</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span><span class="p">))</span>
+    <span class="n">all_files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span><span class="p">))</span>
+    <span class="n">all_html_files</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">my_file</span> <span class="ow">in</span> <span class="n">all_files</span><span class="p">:</span>
+        <span class="c1">#if my_file.endswith(&quot;.html&quot;):</span>
+        <span class="k">if</span> <span class="n">my_file</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;sources-&#39;</span><span class="p">):</span>
+            <span class="n">all_html_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">my_file</span><span class="p">)</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">bar</span> <span class="o">=</span> <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">progressbar</span><span class="p">(</span><span class="n">maximum</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">all_html_files</span><span class="p">))</span>
+    <span class="c1"># inline search and replace</span>
+    <span class="k">for</span> <span class="n">my_file</span> <span class="ow">in</span> <span class="n">all_html_files</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fileinput</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="n">my_file</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">multiple_replace</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="o">*</span><span class="n">replacements</span><span class="p">))</span>
+        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">bar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">()</span>  <span class="c1"># clear progress bar</span>
+
+
+<span class="k">def</span> <span class="nf">html_fixes</span><span class="p">(</span><span class="n">my_file</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Applies the various updates and changes I want done to the raw Gigatrees</span>
+<span class="sd">    HTML.</span>
+
+<span class="sd">    Assumes &#39;my_file&#39; is in the CONTENT_FOLDER.</span>
+<span class="sd">    Assumes &#39;my_file&#39; is a string.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span> <span class="o">/</span> <span class="n">my_file</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">html_doc</span><span class="p">:</span>
+        <span class="n">my_html</span> <span class="o">=</span> <span class="n">html_doc</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">my_html</span><span class="p">,</span> <span class="s2">&quot;lxml&quot;</span><span class="p">)</span>
+
+    <span class="c1"># change page title</span>
+    <span class="n">title_tag</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">title</span>
+    <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">soup</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">&quot;gt-page-title&quot;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">title_tag</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">replace_with</span><span class="p">(</span><span class="n">tag</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+        <span class="n">tag</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span>
+
+    <span class="c1"># dump all the meta tags in the head section</span>
+    <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">soup</span><span class="p">(</span><span class="s2">&quot;meta&quot;</span><span class="p">):</span>
+        <span class="n">tag</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span>
+
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    # fix links that point to php pages</span>
+<span class="sd">    for tag in soup(&quot;a&quot;, href=True):</span>
+<span class="sd">        tag[&#39;href&#39;] = tag[&#39;href&#39;].replace(&#39;.php&#39;, &#39;.html&#39;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    # remove wrapper lists (ul/li) to tables</span>
+<span class="sd">    for tag in soup(&quot;ul&quot;):</span>
+<span class="sd">       tag2 = tag.findParent(&#39;ul&#39;)</span>
+<span class="sd">           if tag2:</span>
+<span class="sd">               tag2.replace_with(tag2.contents)</span>
+<span class="sd">               # replace &#39;li&#39; tags with &#39;p&#39;</span>
+<span class="sd">               for tag3 in tag2(&quot;li&quot;):</span>
+<span class="sd">                  tag3.name = &#39;p&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1"># Remove links to CDN stuff I serve locally</span>
+    <span class="n">js_served_locally</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;jquery.min.js&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;jquery-ui.min.js&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;bootstrap.min.js&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;globalize.min.js&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;dx.chartjs.js&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">soup</span><span class="p">(</span><span class="s2">&quot;script&quot;</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">link</span> <span class="o">=</span> <span class="n">tag</span><span class="p">[</span><span class="s2">&quot;src&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">link</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">js_served_locally</span><span class="p">):</span>
+                <span class="n">tag</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="c1"># fix pdf paths?</span>
+
+    <span class="c1"># other stuff</span>
+    <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">soup</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">&quot;gt-page-title&quot;</span><span class="p">):</span>
+        <span class="n">tag</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">soup</span><span class="p">(</span><span class="n">class_</span><span class="o">=</span><span class="s2">&quot;gt-version&quot;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">tag</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span>
+
+    <span class="c1"># at meta tags, used for the breadcrumbs in the link.</span>
+    <span class="c1"># they need to be in the &lt;head&gt; section, in the form</span>
+    <span class="c1">#</span>
+    <span class="c1"># &lt;head&gt;</span>
+    <span class="c1">#    &lt;!-- other stuff... --&gt;</span>
+    <span class="c1">#    &lt;meta name=&quot;at&quot; content=&quot;Locations&quot; /&gt;</span>
+    <span class="c1">#    &lt;meta name=&quot;at_link&quot; content=&quot;places.html&quot; /&gt;  &lt;!-- this is added to SITEURL --&gt;</span>
+    <span class="c1"># &lt;/head&gt;</span>
+    <span class="n">new_tags</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="k">if</span> <span class="n">my_file</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;names-&quot;</span><span class="p">):</span>
+        <span class="n">new_tag_1</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">new_tag</span><span class="p">(</span><span class="s2">&quot;meta&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="s2">&quot;Surnames&quot;</span><span class="p">)</span>
+        <span class="n">new_tag_2</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">new_tag</span><span class="p">(</span><span class="s2">&quot;meta&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="s2">&quot;names.html&quot;</span><span class="p">)</span>
+        <span class="n">new_tags</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">elif</span> <span class="n">my_file</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;places-&quot;</span><span class="p">):</span>
+        <span class="n">new_tag_1</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">new_tag</span><span class="p">(</span><span class="s2">&quot;meta&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="s2">&quot;Locations&quot;</span><span class="p">)</span>
+        <span class="n">new_tag_2</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">new_tag</span><span class="p">(</span><span class="s2">&quot;meta&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="s2">&quot;places.html&quot;</span><span class="p">)</span>
+        <span class="n">new_tags</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">elif</span> <span class="n">my_file</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;sources-&quot;</span><span class="p">):</span>
+        <span class="n">new_tag_1</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">new_tag</span><span class="p">(</span><span class="s2">&quot;meta&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="s2">&quot;Sources&quot;</span><span class="p">)</span>
+        <span class="n">new_tag_2</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">new_tag</span><span class="p">(</span><span class="s2">&quot;meta&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="s2">&quot;sources.html&quot;</span><span class="p">)</span>
+        <span class="n">new_tags</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">elif</span> <span class="n">my_file</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;timeline&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">my_file</span> <span class="o">!=</span> <span class="s2">&quot;timeline.html&quot;</span><span class="p">:</span>
+        <span class="n">new_tag_1</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">new_tag</span><span class="p">(</span><span class="s2">&quot;meta&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="s2">&quot;Timelines&quot;</span><span class="p">)</span>
+        <span class="n">new_tag_2</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">new_tag</span><span class="p">(</span><span class="s2">&quot;meta&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="s2">&quot;timeline.html&quot;</span><span class="p">)</span>
+        <span class="n">new_tags</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="k">if</span> <span class="n">new_tags</span><span class="p">:</span>
+        <span class="n">new_tag_1</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;at&#39;</span>
+        <span class="n">new_tag_2</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;at_link&#39;</span>
+        <span class="n">soup</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_tag_1</span><span class="p">)</span>
+        <span class="n">soup</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_tag_2</span><span class="p">)</span>
+
+    <span class="c1"># write fixed version of file to disk</span>
+    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span> <span class="o">/</span> <span class="n">my_file</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">html_doc</span><span class="p">:</span>
+        <span class="n">html_doc</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">soup</span><span class="p">))</span>
+        <span class="c1">#html_doc.write(soup.prettify())</span>
+
+
+<span class="k">def</span> <span class="nf">html_fixes_2</span><span class="p">(</span><span class="n">my_file</span><span class="p">,</span> <span class="n">my_bar</span><span class="p">,</span> <span class="n">my_counter</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Applies the HTML changes and then updates the counter.</span>
+
+<span class="sd">    Assumes &#39;my_bar&#39; is of type minchin.text.progressbar</span>
+<span class="sd">    Assumes &#39;my_counter&#39; is of type multiprocessing.Value</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">html_fixes</span><span class="p">(</span><span class="n">my_file</span><span class="p">)</span>
+    <span class="c1"># get the lock so that different threads can&#39;t update it at the same time</span>
+    <span class="k">with</span> <span class="n">my_counter</span><span class="o">.</span><span class="n">get_lock</span><span class="p">():</span>
+        <span class="n">my_counter</span><span class="o">.</span><span class="n">value</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">my_bar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">my_counter</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">For 11,146 files (2 core, 4 thread machine, program run time):</span>
+<span class="sd">    - no html cleaning (so just overhead):</span>
+<span class="sd">        13:50 (partial delete, 7-Zip), 24:52, 21:56, 25:59 (Zipfile)</span>
+<span class="sd">    - single thread: 18:49.190113</span>
+<span class="sd">    - multi-threaded (n_jobs=9): 4:59.657586</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">clean_adam_html_single_thread</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Remove nasty and extra HTML.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">start_time_local</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Remove nasty and extra HTML (single threaded).&quot;</span><span class="p">)</span>
+
+    <span class="c1">#os.chdir(str(CONTENT_FOLDER))</span>
+    <span class="n">all_files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span><span class="p">))</span>
+    <span class="n">all_html_files</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">my_file</span> <span class="ow">in</span> <span class="n">all_files</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">my_file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.html&quot;</span><span class="p">):</span>
+            <span class="n">all_html_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">my_file</span><span class="p">)</span>
+
+    <span class="c1"># this gives us a C-type integer, useful for accessing from multiple threads</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">bar</span> <span class="o">=</span> <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">progressbar</span><span class="p">(</span><span class="n">maximum</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">all_html_files</span><span class="p">))</span>
+    <span class="n">bar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">counter</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">my_file</span> <span class="ow">in</span> <span class="n">all_html_files</span><span class="p">:</span>
+        <span class="n">html_fixes_2</span><span class="p">(</span><span class="n">my_file</span><span class="p">,</span> <span class="n">bar</span><span class="p">,</span> <span class="n">counter</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">()</span>  <span class="c1"># clear progress bar</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">INDENT</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time_local</span><span class="p">)</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">clean_adam_html_multithreaded</span><span class="p">(</span><span class="n">my_n_jobs</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Remove nasty and extra HTML (multi-threaded).&#39;&#39;&#39;</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Benchmarks</span>
+
+<span class="sd">    n_jobs      time</span>
+<span class="sd">    9           6:20</span>
+<span class="sd">    6           6:18  (machine has 6 cores)</span>
+<span class="sd">    4           7:16</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="c1">#start_time_local = datetime.now()</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Remove nasty and extra HTML (multi-threaded).&quot;</span><span class="p">)</span>
+
+    <span class="n">all_files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CONTENT_FOLDER</span><span class="p">))</span>
+    <span class="n">all_html_files</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">my_file</span> <span class="ow">in</span> <span class="n">all_files</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">my_file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.html&quot;</span><span class="p">):</span>
+            <span class="n">all_html_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">my_file</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">my_n_jobs</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">my_n_jobs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">())</span>
+    <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">my_n_jobs</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">5</span><span class="p">)(</span><span class="n">delayed</span><span class="p">(</span><span class="n">html_fixes</span><span class="p">)(</span><span class="n">my_file</span><span class="p">)</span> <span class="k">for</span> <span class="n">my_file</span> <span class="ow">in</span> <span class="n">all_html_files</span><span class="p">)</span>
+    <span class="c1">#print(INDENT, datetime.now() - start_time_local)</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">pelican</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Run Pelican.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Run Pelican (site generator).&quot;</span><span class="p">)</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">WORKING_FOLDER</span><span class="p">))</span>
+    <span class="n">run</span><span class="p">(</span><span class="s1">&#39;pelican -s publishconf.py&#39;</span><span class="p">)</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">pelican_local</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Run Pelican (in local, developmental mode).&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Run Pelican (site generator) in local mode.&quot;</span><span class="p">)</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">WORKING_FOLDER</span><span class="p">))</span>
+    <span class="n">run</span><span class="p">(</span><span class="s1">&#39;pelican -s pelicanconf.py&#39;</span><span class="p">)</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">create_tracking</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Create deploy tracking file.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="k">global</span> <span class="n">tracking_filename</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Create deploy tracking file.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># create a &#39;random&#39; number using UUID</span>
+    <span class="c1"># note that the last set of digits will correspond to the workstation</span>
+    <span class="n">myUUID</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid1</span><span class="p">())</span>
+    <span class="n">tracking_filename</span> <span class="o">=</span> <span class="n">myUUID</span> <span class="o">+</span> <span class="s2">&quot;.txt&quot;</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">GITHUB_FOLDER</span> <span class="o">/</span> <span class="n">tracking_filename</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+    <span class="n">target</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">myUUID</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">target</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Adam upload by Python script.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">target</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">GEDCOM_EXPECTED</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">target</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">git</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Git commit and push.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Git -&gt; commit and push.&quot;</span><span class="p">)</span>
+
+    <span class="n">commit_msg</span> <span class="o">=</span> <span class="s2">&quot;Gigatrees generated upload from {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">GEDCOM_EXPECTED</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">GITHUB_FOLDER</span><span class="p">))</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="s1">&#39;{}{}&gt; git add -A{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">INDENT</span><span class="p">,</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span> <span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="p">))</span>
+    <span class="n">r1</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="s1">&#39;git add -A&#39;</span><span class="p">,</span> <span class="n">hide</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="c1">#print(r1.stdout)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">r1</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="s1">&#39;{}{}&gt; git commit -m &quot;{}&quot;{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">INDENT</span><span class="p">,</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span> <span class="n">commit_msg</span><span class="p">,</span> <span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="p">))</span>
+    <span class="n">r2</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="s1">&#39;git commit -m Gigatrees_upload&#39;</span><span class="p">,</span> <span class="n">hide</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="c1">#print(r2.stdout)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">r2</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="s1">&#39;{}{}&gt; git push origin{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">INDENT</span><span class="p">,</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span> <span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="p">))</span>
+    <span class="n">r3</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="s1">&#39;git push origin&#39;</span><span class="p">,</span> <span class="n">hide</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">r3</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">r3</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">live</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Tell us when we&#39;re live.&#39;&#39;&#39;</span>
+    <span class="c1"># TO-DO: find tracking file based on creation/modified date</span>
+    <span class="k">global</span> <span class="n">step_no</span>
+    <span class="n">step_no</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_no</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;. Wait to go live.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">tracking_filename</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{}No tracking file set.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">INDENT</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">URL_ROOT</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">tracking_filename</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">requests</span><span class="o">.</span><span class="n">codes</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mi">180</span><span class="p">)</span>
+
+
+<span class="nd">@task</span>
+<span class="k">def</span> <span class="nf">all_steps</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Everything!&#39;&#39;&#39;</span>
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Genealogy Uploader, v.{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">__version__</span><span class="p">)))</span>
+    <span class="k">print</span><span class="p">()</span>
+
+    <span class="n">export_gedcom</span><span class="p">()</span>             <span class="c1"># works 151230</span>
+    <span class="n">clean_gedcom</span><span class="p">()</span>              <span class="c1"># works</span>
+    <span class="n">upload_gedcom</span><span class="p">()</span>             <span class="c1"># works</span>
+    <span class="c1">#check_images()              # works</span>
+    <span class="n">delete_old_output</span><span class="p">()</span>         <span class="c1"># works</span>
+    <span class="n">delete_old_adam</span><span class="p">()</span>           <span class="c1"># works ~2 min</span>
+    <span class="n">get_new_adam</span><span class="p">()</span>              <span class="c1">#</span>
+    <span class="n">unzip_adam</span><span class="p">()</span>                <span class="c1"># pretty sure works ~5 min</span>
+    <span class="c1">#php_to_html()               # works, brakes if there are no PHP files</span>
+    <span class="n">copy_js</span><span class="p">()</span>                   <span class="c1"># works</span>
+    <span class="c1">#copy_css()</span>
+    <span class="n">copy_img</span><span class="p">()</span>
+    <span class="n">replace_index</span><span class="p">()</span>             <span class="c1"># works</span>
+    <span class="n">set_pelican_variables</span><span class="p">()</span>     <span class="c1"># works</span>
+    <span class="c1"># clean_adam_html_single_thread()  # doesn&#39;t crash</span>
+    <span class="n">clean_adam_html_multithreaded</span><span class="p">()</span>
+    <span class="n">replace_emails</span><span class="p">()</span>            <span class="c1"># doesn&#39;t crash</span>
+    <span class="n">create_tracking</span><span class="p">()</span>           <span class="c1"># works ~10 sec</span>
+    <span class="n">pelican</span><span class="p">()</span>                   <span class="c1"># works (assuming Pelican works)</span>
+    <span class="c1">#pelican_local()</span>
+    <span class="n">git</span><span class="p">()</span>                       <span class="c1">#</span>
+    <span class="n">live</span><span class="p">()</span>                      <span class="c1">#</span>
+
+    <span class="n">minchin</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">clock_on_right</span><span class="p">(</span><span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span> <span class="o">+</span> <span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span> <span class="o">+</span> <span class="s2">&quot;Update is Live!&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="n">INDENT</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span>
+
+
+<span class="nd">@task</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">does_nothing</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;this does nothing&#39;</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">all_steps</span><span class="p">()</span>
+</pre></div>
+</td></tr></table>
+
+<!-- scripting outside of Pelican, HTML data files, re-using a theme, client-side scripting, comments via email -->
+        </div>
+    </section>
+
+		</div>
+    </div>
+</div>
+
+
+
+
+<footer>
+    <div class="container">
+        <hr>
+        <div class="row">
+            <div class="col-sm-10 col-xs-8">
+                &copy;  William Minchin
+            </div>
+            <div class="col-sm-2 col-xs-4"><p class="pull-right"><span class="fa fa-arrow-up"></span> <a href="#">Back to top</a></p></div>
+        </div>
+    </div>
+</footer>
+	<script src="/theme/js/jquery.min.js" type="text/javascript"></script>
+
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="/theme/js/bootstrap.min.js" type="text/javascript"></script>
+
+	<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+	<script src="/theme/js/respond.min.js" type="text/javascript"></script>
+
+
+    <!-- Google Analytics Universal -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-384291-3', 'minchin.ca');
+        ga('send', 'pageview');
+    </script>
+    <!-- End Google Analytics Universal Code -->
+</body>
+</html>
